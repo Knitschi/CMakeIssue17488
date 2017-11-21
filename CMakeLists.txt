@@ -8,7 +8,7 @@ add_library( libFoo INTERFACE )
 if( ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
     target_compile_options( libFoo INTERFACE /FIfoo.h )
 elseif(${CMAKE_GENERATOR} MATCHES "Unix Makefiles")
-    target_compile_options( libFoo INTERFACE "-include foo.h" )
+    target_compile_options( libFoo INTERFACE -include "${CMAKE_CURRENT_SOURCE_DIR}/foo.h" )
 endif()
 
 add_executable( bar main.cpp bar.h)
@@ -21,7 +21,7 @@ if( ${CMAKE_GENERATOR} MATCHES "Visual Studio.*")
 
 elseif(${CMAKE_GENERATOR} MATCHES "Unix Makefiles")
 
-    set_property( SOURCE main.cpp APPEND_STRING PROPERTY COMPILE_FLAGS "-include bar.h" )
+    set_property( SOURCE main.cpp APPEND_STRING PROPERTY COMPILE_FLAGS "-include \"${CMAKE_CURRENT_SOURCE_DIR}/bar.h\"" )
 
 endif()
 
